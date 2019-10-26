@@ -24,11 +24,13 @@ function deleteBalanceSheetRows() {
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
   var values = range.getValues();
+  var totalUnrealizedCapitalGainLossColumnIndex = 1;
   for (var i = 0; i < values.length; i++) {
-    if (values[i][1] == 'Total Unrealized Capital Gain/Loss') {
+    if (values[i][totalUnrealizedCapitalGainLossColumnIndex] == 'Total Unrealized Capital Gain/Loss') {
       break;
     }
   }
 
-  sheet.deleteRows(2, i);
+  var firstNonHeaderRowNum = 2;
+  sheet.deleteRows(firstNonHeaderRowNum, i);
 }
