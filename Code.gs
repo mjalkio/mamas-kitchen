@@ -22,6 +22,7 @@ function deleteBlankColumns() {
 function deleteBalanceSheetRows() {
   // Need to delete all rows above "Total Unrealized Capital Gain/Loss"
   var sheet = SpreadsheetApp.getActiveSheet();
+  // TODO: Shouldn't have done this iteratively (it's slow!), use sheet.DeleteRows instead
   while (getCellValue(sheet, 2, 2) != 'Total Unrealized Capital Gain/Loss') {
     sheet.deleteRow(2);
   }
