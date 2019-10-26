@@ -117,3 +117,42 @@ function fillInAccountType1Values() {
     }
   }
 }
+
+function fillInAccountType2Values() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+  var accountType2ColumnIndex = 3;
+  var lastAccountType2ValueIndex = -1;
+  var lastAccountType2Value = '';
+
+  for (var i = 1; i < values.length; i++) {
+    if (values[i][accountType2ColumnIndex] == 'Total ' + lastAccountType2Value) {
+      var emptyAccountType2Range = sheet.getRange(lastAccountType2ValueIndex + 1, accountType2ColumnIndex + 1, i - lastAccountType2ValueIndex, 1);
+      emptyAccountType2Range.setValue(lastAccountType2Value);
+    } else if (values[i][accountType2ColumnIndex] != '') {
+      var lastAccountType2ValueIndex = i;
+      var lastAccountType2Value = values[i][accountType2ColumnIndex];
+    }
+  }
+}
+
+function fillInAccountType3Values() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+  var accountType3ColumnIndex = 4;
+  var lastAccountType3ValueIndex = -1;
+  var lastAccountType3Value = '';
+
+  for (var i = 1; i < values.length; i++) {
+    if (values[i][accountType3ColumnIndex] == 'Total ' + lastAccountType3Value) {
+      var emptyAccountType3Range = sheet.getRange(lastAccountType3ValueIndex + 1, accountType3ColumnIndex + 1, i - lastAccountType3ValueIndex, 1);
+      emptyAccountType3Range.setValue(lastAccountType3Value);
+    } else if (values[i][accountType3ColumnIndex] != '') {
+      var lastAccountType3ValueIndex = i;
+      var lastAccountType3Value = values[i][accountType3ColumnIndex];
+    }
+  }
+}
+
