@@ -88,3 +88,22 @@ function fillInAccountValues() {
     }
   }
 }
+
+function fillInAccountType1Values() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+  var accountType1ColumnIndex = 2;
+  var lastAccountType1ValueIndex = -1;
+  var lastAccountType1Value = '';
+
+  for (var i = 1; i < values.length; i++) {
+    if (values[i][accountType1ColumnIndex] == 'Total ' + lastAccountType1Value) {
+      var emptyAccountType1Range = sheet.getRange(lastAccountType1ValueIndex + 1, accountType1ColumnIndex + 1, i - lastAccountType1ValueIndex, 1);
+      emptyAccountType1Range.setValue(lastAccountType1Value);
+    } else if (values[i][accountType1ColumnIndex] != '') {
+      var lastAccountType1ValueIndex = i;
+      var lastAccountType1Value = values[i][accountType1ColumnIndex];
+    }
+  }
+}
