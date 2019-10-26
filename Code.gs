@@ -1,3 +1,16 @@
+function main() {
+  // Cleans up a Google Sheet for Mama's Kitchen!
+  deleteBlankColumns();
+  fillInHeaders();
+  deleteBalanceSheetRows();
+  fillInAccountValues();
+  fillInAccountType1Values();
+  fillInAccountType2Values();
+  fillInAccountType3Values();
+  fillInAccountType4Values();
+  deleteRowsWithTotalsOrBlanks();
+}
+
 function columnLetterToIndex(letter) {
   // Columns start from 1 in Google Sheets
   // 'A'.charCodeAt(0) === 65
