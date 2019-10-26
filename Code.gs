@@ -34,3 +34,19 @@ function deleteBalanceSheetRows() {
   var firstNonHeaderRowNum = 2;
   sheet.deleteRows(firstNonHeaderRowNum, i);
 }
+
+function fillInAccountValues() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+  var accountColumnIndex = 1;
+  var lastAccountValueIndex = 1;
+  for (var i = 2; i < values.length; i++) {
+    if (values[i][accountColumnIndex] != '') {
+      var emptyAccountRange = sheet.getRange(lastAccountValueIndex + 1, accountColumnIndex + 1, i - lastAccountValueIndex, 1);
+      Logger.log(values[lastAccountValueIndex][accountColumnIndex]);
+      emptyAccountRange.setValue(values[lastAccountValueIndex][accountColumnIndex]);
+      lastAccountValueIndex = i;
+    }
+  }
+}
