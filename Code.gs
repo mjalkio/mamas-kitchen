@@ -156,3 +156,9 @@ function fillInAccountType3Values() {
   }
 }
 
+function fillInAccountType4Values() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  sheet.getRange("F2").setValue('=B2&if(ISBLANK(C2),""," | ")&C2&if(ISBLANK(D2),""," | ")&D2&if(ISBLANK(E2),""," | ")&E2');
+  sheet.getRange("F3").setValue('=B3&if(ISBLANK(C3),""," | ")&C3&if(ISBLANK(D3),""," | ")&D3&if(ISBLANK(E3),""," | ")&E3');
+  sheet.getRange('F2:F3').copyTo(sheet.getRange('F4:F'));
+}
