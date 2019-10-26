@@ -19,6 +19,16 @@ function deleteBlankColumns() {
   }
 }
 
+function fillInHeaders() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  sheet.getRange("A1").setValue('Account Type');
+  sheet.getRange("B1").setValue('Account');
+  sheet.getRange("C1").setValue('Account Type 1');
+  sheet.getRange("D1").setValue('Account Type 2');
+  sheet.getRange("E1").setValue('Account Type 3');
+  sheet.getRange("F1").setValue('Account Type 4');
+}
+
 function deleteBalanceSheetRows() {
   // Need to delete all rows above "Total Unrealized Capital Gain/Loss"
   var sheet = SpreadsheetApp.getActiveSheet();
