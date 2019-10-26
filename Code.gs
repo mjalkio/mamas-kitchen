@@ -27,12 +27,13 @@ function deleteBlankColumns() {
   // We iterate backwards, so that the indices don't change with each deletion
   var columnsToDelete = ['W', 'V', 'T', 'R', 'P', 'N', 'L', 'J', 'H', 'G'];
   for (var i = 0; i < columnsToDelete.length; i++) {
-    indexToDelete = columnLetterToIndex(columnsToDelete[i]);
+    var indexToDelete = columnLetterToIndex(columnsToDelete[i]);
     sheet.deleteColumn(indexToDelete);
   }
 }
 
 function fillInHeaders() {
+  // Adds headers to the Sheet
   var sheet = SpreadsheetApp.getActiveSheet();
   sheet.getRange("A1").setValue('Account Type');
   sheet.getRange("B1").setValue('Account');
@@ -59,6 +60,9 @@ function deleteBalanceSheetRows() {
 }
 
 function fillInAccountValues() {
+  // The sheet comes "pretty", but we need a value in every row.
+  // This copies the Account values to the appropriate rows
+  // It also adds an Account Type (based on the map below)
   var ACCOUNT_TYPE_MAP = {
     'Capital Campaign Income': 'Income',
     'Contract Income': 'Income',
@@ -112,7 +116,13 @@ function fillInAccountValues() {
   }
 }
 
+// TODO: Obviously we could refactor
+// fillInAccountType1Values, fillInAccountType2Values, and fillInAccountType2Values
+// to be just one function...
+
 function fillInAccountType1Values() {
+  // The sheet comes "pretty", but if a Type 1 value applies it needs to be appear in the row explicitly
+  // This copies the Account Type 1 values to the appropriate rows
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
   var values = range.getValues();
@@ -132,6 +142,8 @@ function fillInAccountType1Values() {
 }
 
 function fillInAccountType2Values() {
+  // The sheet comes "pretty", but if a Type 2 value applies it needs to be appear in the row explicitly
+  // This copies the Account Type 2 values to the appropriate rows
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
   var values = range.getValues();
@@ -151,6 +163,8 @@ function fillInAccountType2Values() {
 }
 
 function fillInAccountType3Values() {
+  // The sheet comes "pretty", but if a Type 3 value applies it needs to be appear in the row explicitly
+  // This copies the Account Type 3 values to the appropriate rows
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
   var values = range.getValues();
@@ -170,6 +184,8 @@ function fillInAccountType3Values() {
 }
 
 function fillInAccountType4Values() {
+  // Account Type 4 is just the previous account types concatenated together
+  // We use a formula, so when you copy to the final sheet make sure to copy values!!
   var sheet = SpreadsheetApp.getActiveSheet();
   sheet.getRange("F2").setValue('=B2&if(ISBLANK(C2),""," | ")&C2&if(ISBLANK(D2),""," | ")&D2&if(ISBLANK(E2),""," | ")&E2');
   sheet.getRange("F3").setValue('=B3&if(ISBLANK(C3),""," | ")&C3&if(ISBLANK(D3),""," | ")&D3&if(ISBLANK(E3),""," | ")&E3');
@@ -177,6 +193,9 @@ function fillInAccountType4Values() {
 }
 
 function deleteRowsWithTotalsOrBlanks() {
+  // Some rows contain totals, which we don't want in our final Sheet
+  // Other rows have no Amount, we also don't need these
+  // This deletes all those rows
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
   var values = range.getValues();
