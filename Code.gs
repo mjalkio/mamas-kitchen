@@ -162,3 +162,34 @@ function fillInAccountType4Values() {
   sheet.getRange("F3").setValue('=B3&if(ISBLANK(C3),""," | ")&C3&if(ISBLANK(D3),""," | ")&D3&if(ISBLANK(E3),""," | ")&E3');
   sheet.getRange('F2:F3').copyTo(sheet.getRange('F4:F'));
 }
+
+function deleteRowsWithTotalsOrBlanks() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var range = sheet.getDataRange();
+  var values = range.getValues();
+
+  var goodRowValues = [];
+  for (var i = 0; i < values.length; i++) {
+    var isTotalRow = false;
+    // Columns 1 through 5 can signify that a row is a total
+    for (var j = 1; j < 6; j++) {
+      if (values[i][j].indexOf('Total') == 0) {
+        isTotalRow = true;
+        break;
+      }
+    }
+
+    var amountColumnIndex = 12;
+    var isBlankRow = values[i][amountColumnIndex] == '';
+
+    if (isTotalRow || isBlankRow) {
+      continue;
+    } else {
+      goodRowValues.push(values[i]);
+    }
+  }
+
+  range.clearContent();
+  var newRange = sheet.getRange(1, 1, goodRowValues.length, goodRowValues[0].length);
+  newRange.setValues(goodRowValues);
+}
