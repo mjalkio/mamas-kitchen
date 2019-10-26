@@ -36,6 +36,41 @@ function deleteBalanceSheetRows() {
 }
 
 function fillInAccountValues() {
+  var ACCOUNT_TYPE_MAP = {
+    'Capital Campaign Income': 'Income',
+    'Contract Income': 'Income',
+    'Events Income': 'Income',
+    'Fee for Service': 'Income',
+    'Grants Income': 'Income',
+    'Individual Income': 'Income',
+    'Current Payables': 'Expenses',
+    'Bank/Credit Card fees': 'Expenses',
+    'Client Expense': 'Expenses',
+    'Consulting & Professional Fees': 'Expenses',
+    'Consumables': 'Expenses',
+    'Containers/Bags': 'Expenses',
+    'Data Costs': 'Expenses',
+    'Employee Expenses': 'Expenses',
+    'Facilities': 'Expenses',
+    'Food Costs': 'Expenses',
+    'Food Waste': 'Expenses',
+    'Insurance': 'Expenses',
+    'Interest Exp - Mortgage & LMA': 'Expenses',
+    'Investment Admin Fees': 'Expenses',
+    'Kitchen Equip': 'Expenses',
+    'Marketing & Public Relations': 'Expenses',
+    'Miscellaneous': 'Expenses',
+    'Office Supplies & Equip Lease': 'Expenses',
+    'Postage': 'Expenses',
+    'Staff Development': 'Expenses',
+    'Van Expenses': 'Expenses',
+    'Volunteer Expenses': 'Expenses',
+    'InKind Income': 'Other Income',
+    'Investment Income': 'Other Income',
+    'Other Income': 'Other Income',
+    'InKind Expenses': 'Other Expenses',
+    'Other Expense': 'Other Expenses'
+  }
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
   var values = range.getValues();
@@ -43,9 +78,12 @@ function fillInAccountValues() {
   var lastAccountValueIndex = 1;
   for (var i = 2; i < values.length; i++) {
     if (values[i][accountColumnIndex] != '') {
+      var lastAccountValue = values[lastAccountValueIndex][accountColumnIndex];
       var emptyAccountRange = sheet.getRange(lastAccountValueIndex + 1, accountColumnIndex + 1, i - lastAccountValueIndex, 1);
-      Logger.log(values[lastAccountValueIndex][accountColumnIndex]);
-      emptyAccountRange.setValue(values[lastAccountValueIndex][accountColumnIndex]);
+      emptyAccountRange.setValue(lastAccountValue);
+
+      var accountTypeRange = sheet.getRange(lastAccountValueIndex + 1, accountColumnIndex, i - lastAccountValueIndex, 1);
+      accountTypeRange.setValue(ACCOUNT_TYPE_MAP[lastAccountValue]);
       lastAccountValueIndex = i;
     }
   }
