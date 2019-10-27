@@ -92,7 +92,7 @@ function fillInAccountValues() {
     'Investment Income': 'Other Income',
     'Kitchen Equip': 'Expenses',
     'Marketing & Public Relations': 'Expenses',
-    'Memberships/Subscriptions': 'Expenses'
+    'Memberships/Subscriptions': 'Expenses',
     'Miscellaneous': 'Expenses',
     'Office Supplies & Equip Lease': 'Expenses',
     'Other Expense': 'Other Expenses',
@@ -100,7 +100,7 @@ function fillInAccountValues() {
     'Postage': 'Expenses',
     'Staff Development': 'Expenses',
     'Van Expenses': 'Expenses',
-    'Volunteer Expenses': 'Expenses',
+    'Volunteer Expenses': 'Expenses'
   }
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
