@@ -96,7 +96,11 @@ function fillInAccountValues() {
     'Investment Income': 'Other Income',
     'Other Income': 'Other Income',
     'InKind Expenses': 'Other Expenses',
-    'Other Expense': 'Other Expenses'
+    'Other Expense': 'Other Expenses',
+    'Advocacy': 'Expenses',
+    'Direct Mail': 'Expenses',
+    'Event Expense': 'Expenses',
+    'Memberships/Subscriptions': 'Expenses'
   }
   var sheet = SpreadsheetApp.getActiveSheet();
   var range = sheet.getDataRange();
