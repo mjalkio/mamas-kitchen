@@ -215,6 +215,11 @@ function deleteRowsWithTotalsOrBlanks() {
       }
     }
 
+    if (values[i][0] == 'TOTAL') {
+      // There's also a grand total row, delete that
+      isTotalRow = true;
+    }
+
     var amountColumnIndex = 12;
     var isBlankRow = values[i][amountColumnIndex] == '';
 
